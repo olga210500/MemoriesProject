@@ -1,5 +1,6 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+import { addNewPost, deletePost, getAllPosts } from './actions/postActions'
 import litLogo from './assets/lit.svg'
 
 /**
@@ -43,7 +44,6 @@ export class MyElement extends LitElement {
   }
 
   private _onClick() {
-    const url = 'http://localhost:5000/posts';
 
     const obj = {
       title: 'I love cats',
@@ -51,26 +51,13 @@ export class MyElement extends LitElement {
       creator: 'olha',
       tags:['String','lala'],
       selectedFile:'file',
-      createdAt: new Date()
     }
-    const params = {
-      // headers:{'content-type':'application/json;charset= UTF-8', 'Access-Control-Allow-Origin':'*'},
-      body:JSON.stringify(obj),
-      method:'POST',
-      headers: { 'Content-Type': 'application/json' }
-
-    }
-    console.log(params.body);
+    // const posts = localStorage.getItem('posts');
+    // deletePost('6319b7d3f04d01c7b7a18d9d')
+    addNewPost(obj)
+    //  getAllPosts()
     
-  fetch(url,params).then((res)=>{
-       console.log(res);
-      
-    }).catch(err=>{
-      console.log(err);
-      
-    })
-     
-    console.log(obj);
+
     
     this.count++
   }
