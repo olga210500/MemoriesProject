@@ -1,141 +1,83 @@
-import { LitElement, css, html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
-import { addNewPost, deletePost, getAllPosts } from './actions/postActions'
-import litLogo from './assets/lit.svg'
 
-/**
- * An example element.
- *
- * @slot - This element has a slot
- * @csspart button - The button
- */
-@customElement('my-element')
-export class MyElement extends LitElement {
-  /**
-   * Copy for the read the docs hint.
-   */
+import { LitElement, html, css } from 'lit';
+import { customElement, state, property, query } from 'lit/decorators.js';
+import { addNewPost, getAllPosts } from './actions/postActions';
+import { Post } from './models/models';
+
+
+@customElement('memories-list')
+export class MemoriesList extends LitElement {
+  static styles = css`
+    .completed {
+      text-decoration-line: line-through;
+      color: #777;
+    }
+  `;
+
+  @state()
+  private _listItems =JSON.parse(localStorage.getItem('posts') || '')
   @property()
-  docsHint = 'Click on the Vite and Lit logos to learn more'
-
-  /**
-   * The number of times the button has been clicked.
-   */
-  @property({ type: Number })
-  count = 0
 
   render() {
-    return html`
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://lit.dev" target="_blank">
-          <img src=${litLogo} class="logo lit" alt="Lit logo" />
-        </a>
-      </div>
-      <slot></slot>
+    getAllPosts();
+
+    // TODO: Replace items definition.
+    const items = this._listItems;
+    console.log(items);
+
+    const memories = html`
+
+
+    
+      <ul>
+        ${items.map((item: Post) =>
+      html`
       <div class="card">
-        <button @click=${this._onClick} part="button">
-          count is ${this.count}
-        </button>
-      </div>
-      <p class="read-the-docs">${this.docsHint}</p>
-    `
+      <img src="${item.selectedFile}" alt="Avatar" style="width:100%">
+      <div class="container">
+      <h4><b>John Doe</b></h4> 
+      <p>
+      ${item.selectedFile}
+      </p> 
+       </div>
+        </div>`
+    )}
+      </ul>
+    `;
+    // TODO: Define partial templates.
+    return html`
+      <h2>To Do</h2>
+      <!-- TODO: Update expression. -->
+      ${memories}
+      <input id="newitem" aria-label="New item">
+      <input id="newitem" aria-label="New item">
+      <input id="newitem" aria-label="New item">
+      <button @click=${this.addToDo}>Add</button>
+    `;
   }
 
-  private _onClick() {
 
+
+  setHideCompleted(e: Event) {
+    this.hideCompleted = (e.target as HTMLInputElement).checked;
+  }
+
+  @query('#newitem')
+  input!: HTMLInputElement;
+
+  addToDo() {
     const obj = {
       title: 'I love cats',
       message: 'hello',
       creator: 'olha',
       tags:['String','lala'],
-      selectedFile:'file',
+      selectedFile:'https://images.unsplash.com/photo-1518534249708-e8f3537753ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
     }
     // const posts = localStorage.getItem('posts');
     // deletePost('6319b7d3f04d01c7b7a18d9d')
+    // getAllPosts()
     addNewPost(obj)
-    //  getAllPosts()
-    
-
-    
-    this.count++
-  }
-
-  static styles = css`
-    :host {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .logo {
-      height: 6em;
-      padding: 1.5em;
-      will-change: filter;
-    }
-    .logo:hover {
-      filter: drop-shadow(0 0 2em #646cffaa);
-    }
-    .logo.lit:hover {
-      filter: drop-shadow(0 0 2em #325cffaa);
-    }
-
-    .card {
-      padding: 2em;
-    }
-
-    .read-the-docs {
-      color: #888;
-    }
-
-    h1 {
-      font-size: 3.2em;
-      line-height: 1.1;
-    }
-
-    a {
-      font-weight: 500;
-      color: #646cff;
-      text-decoration: inherit;
-    }
-    a:hover {
-      color: #535bf2;
-    }
-
-    button {
-      border-radius: 8px;
-      border: 1px solid transparent;
-      padding: 0.6em 1.2em;
-      font-size: 1em;
-      font-weight: 500;
-      font-family: inherit;
-      background-color: #1a1a1a;
-      cursor: pointer;
-      transition: border-color 0.25s;
-    }
-    button:hover {
-      border-color: #646cff;
-    }
-    button:focus,
-    button:focus-visible {
-      outline: 4px auto -webkit-focus-ring-color;
-    }
-
-    @media (prefers-color-scheme: light) {
-      a:hover {
-        color: #747bff;
-      }
-      button {
-        background-color: #f9f9f9;
-      }
-    }
-  `
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'my-element': MyElement
+    getAllPosts();
   }
 }
+
