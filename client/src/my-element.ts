@@ -43,6 +43,35 @@ export class MyElement extends LitElement {
   }
 
   private _onClick() {
+    const url = 'http://localhost:5000/posts';
+
+    const obj = {
+      title: 'I love cats',
+      message: 'hello',
+      creator: 'olha',
+      tags:['String','lala'],
+      selectedFile:'file',
+      createdAt: new Date()
+    }
+    const params = {
+      // headers:{'content-type':'application/json;charset= UTF-8', 'Access-Control-Allow-Origin':'*'},
+      body:JSON.stringify(obj),
+      method:'POST',
+      headers: { 'Content-Type': 'application/json' }
+
+    }
+    console.log(params.body);
+    
+  fetch(url,params).then((res)=>{
+       console.log(res);
+      
+    }).catch(err=>{
+      console.log(err);
+      
+    })
+     
+    console.log(obj);
+    
     this.count++
   }
 
