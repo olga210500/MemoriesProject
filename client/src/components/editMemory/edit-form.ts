@@ -1,15 +1,13 @@
 
-import { LitElement, html } from 'lit';
+import { LitElement, html} from 'lit';
 import { customElement, state, property, query } from 'lit/decorators.js';
 import { addNewPost, getAllPosts } from '../../actions/postActions';
-import { Post } from '../../models/models';
-import { memoriesState } from '../../states/memoryState';
 import { formStyles } from './styles';
 // import { addNewPost, get } from './actions/postActions';
 // import { Post } from './models/models';
 
-@customElement('memory-form')
-export class MemoryForm extends LitElement {
+@customElement('edit-form')
+export class EditForm extends LitElement {
   static styles = formStyles;
 
   @state()
@@ -18,15 +16,14 @@ export class MemoryForm extends LitElement {
   @property()
 
   render() {
-    getAllPosts()
+
     return html`
 
 <div>
 <div class="memory-form-wrapper">
   <div class="memory-form">
-    <h5 class="title">Creating a memory</h5>
-    <p class="description">Create memory to not forgot.
-    </p>
+    <h5 class="title">Edit memory</h5>
+
     <div class='input-container'>
       <input type="text" class="input-field form-control  form-input" id="creator-name" placeholder="Creator" required>
     </div>
@@ -40,10 +37,9 @@ export class MemoryForm extends LitElement {
     <input type="text" class="input-field form-control  form-input" id='tags' placeholder="Tags (comma separated)" required>
     </div>
     <div class='input-container'>
-    <input type="file" name="selectedFile" accept="image/*" id='selectedFile'>
     </div>
     <div class="submit-button-wrapper">
-    <input type="button" value="Send"  @click = ${this.addMemory} >
+    <input type="button" value="Save"  @click = ${this.addMemory}>
     </div>
   </div>
 </div>
@@ -60,7 +56,7 @@ export class MemoryForm extends LitElement {
   @query('#selectedFile')
   selectedFile!: HTMLInputElement;
   @query('#tags')
-  tags!: HTMLInputElement;
+  tags!:HTMLInputElement;
 
 
   addMemory(e: Event): void {
@@ -69,49 +65,23 @@ export class MemoryForm extends LitElement {
     const creator = this.creator.value;
     const message = this.message.value;
     const title = this.titleString.value;
-    const selectedFiles = this.selectedFile.files;
+    const selectedFile = this.selectedFile.value;
     const tags = this.tags.value;
+    console.log(creator, message, selectedFile)
 
-    let obj: Post = {
+    const obj = {
       title,
       message,
       creator,
-      createdAt: new Date(),
+      createdAt:new Date(),
       tags: [...tags.split(',')],
-    }
-    if (selectedFiles?.length) {
-
-      getBase64(selectedFiles[0], (result) => {
-        obj.selectedFile = result?.toString();      
-        addNewPost(obj);
-
-      });
-
-    } else {
-      addNewPost(obj);
-
+      selectedFile
     }
 
+    getAllPosts()
 
-
-  
-
-
+    addNewPost(obj)
 
   }
-
 }
 
-function getBase64(file: File, cb: (el:string | ArrayBuffer | null) => void) {
-  var reader = new FileReader();
-
-  reader.readAsDataURL(file);
-  reader.onload = function () {
-    console.log(reader.result);//outputs random looking characters for the image
-    // Return the result in the callback
-    cb(reader.result);
-  };
-  reader.onerror = function (error) {
-    console.log('Error: ', error);
-  };
-}

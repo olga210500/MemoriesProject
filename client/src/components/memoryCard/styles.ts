@@ -29,7 +29,7 @@ p::first-letter{
 
 .card__image {      
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 .card__overlay {
@@ -113,6 +113,7 @@ p::first-letter{
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
+  height:70px;
 }    
 .card__title__inside{
   padding-left: 1.6em;
@@ -123,6 +124,7 @@ p::first-letter{
   -webkit-line-clamp: 3;
   overflow: hidden;
   text-transform:capitalize;
+  margin: 0;
 
 }
 .card__tag{
@@ -156,6 +158,7 @@ p::first-letter{
   top: -85px;
   left: 25px;
   cursor:pointer;
+ 
 }
 }
   `;

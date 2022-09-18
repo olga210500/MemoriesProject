@@ -3,6 +3,8 @@ import { Post } from "../models/models";
 
 
 const addNewPost = (post: Post) => {
+    console.log(JSON.stringify(post));
+    
     const params = {
         body: JSON.stringify(post),
         method: 'POST',
@@ -63,7 +65,8 @@ const getAllPosts = () => {
 
             localStorage.setItem("posts", JSON.stringify(resp || []));
 
-
+            console.log(resp);
+            
 
             return resp;
 

@@ -29,15 +29,16 @@ export class MemoryCard extends LitElement {
       getAllPosts();
 
     }
+ 
     return html`<ul class="cards">${items.map((item: Post) => html`
+    
     
     <li>
       <div class="card">
-
-        <img src="https://i.imgur.com/oYiTqum.jpg" class="card__image" alt="" />
+       <a href="/${item._id}"> <img src="${item?.selectedFile  || 'https://i.imgur.com/oYiTqum.jpg'}" class="card__image" alt="" /></a>
 
         <div class="card__overlay">
-        <img class='edit__icon' src="./src/assets/icons/edit_icon.svg" alt="ICON">
+        <img class='edit__icon' src="./src/assets/icons/edit_icon.svg" @click = ${()=>this.editMemory(item?._id)} alt="ICON">
         <img class='delete_card'src="./src/assets/icons/delete_icon.svg" @click = ${()=>this.deleteMemory(item?._id)} alt="ICON">
           <div class="card__header">
             <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                     
@@ -74,5 +75,9 @@ export class MemoryCard extends LitElement {
     console.log(id);
     
   
+  }
+  editMemory(id:string|undefined){
+    // location.href = `http://localhost:5173/${id}`;
+
   }
 }

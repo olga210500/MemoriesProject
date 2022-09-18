@@ -11,7 +11,7 @@ export class MemoriesList extends LitElement {
     flex-direction:column;
     justify-content:space-around;
 
-    margin:20px 70px;
+    margin:20px 120px;
   }
   .header-container{
     align-items:center;
