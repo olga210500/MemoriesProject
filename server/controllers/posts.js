@@ -46,4 +46,6 @@ const updatePost = async (req,res)=>{
     await PostMessage.findOneAndRemove({_id:id});
  }
 
+
+ 
 export { getPosts, createPost, updatePost, deletePost}

@@ -1,9 +1,10 @@
 interface Post {
+    _id?:string,
     title: string,
     message: string,
     creator: string,
     tags: Tags,
-    selectedFile: string,
+    selectedFile?: string,
     createdAt?: Date
 }
 interface Tags {
