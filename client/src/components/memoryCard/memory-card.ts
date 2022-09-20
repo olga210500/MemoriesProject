@@ -14,7 +14,6 @@ export class MemoryCard extends LitElement {
   @state()
   
   public _listItems = JSON.parse(localStorage.getItem('posts') || '[]');
-  private edit = false;
 
 
   @property()
@@ -35,7 +34,7 @@ export class MemoryCard extends LitElement {
     
     <li>
       <div class="card">
-       <a href="/${item._id}"> <img src="${item?.selectedFile  || 'https://i.imgur.com/oYiTqum.jpg'}" class="card__image" alt="" /></a>
+       <img src="${item?.selectedFile  || 'https://i.imgur.com/oYiTqum.jpg'}" class="card__image" alt="" />
 
         <div class="card__overlay">
         <img class='edit__icon' src="./src/assets/icons/edit_icon.svg" @click = ${()=>this.editMemory(item?._id)} alt="ICON">
@@ -57,7 +56,7 @@ export class MemoryCard extends LitElement {
     </li>
   `)}</ul>
   `
-  // ${this.edit?}
+
 
   }
 
@@ -69,15 +68,11 @@ export class MemoryCard extends LitElement {
       localStorage.setItem('posts',JSON.stringify(this._listItems))
 
     }
-    console.log(this._listItems) ;
-    console.log('click');
-    
-    console.log(id);
+
     
   
   }
   editMemory(id:string|undefined){
-    // location.href = `http://localhost:5173/${id}`;
 
   }
 }

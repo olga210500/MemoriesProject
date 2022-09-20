@@ -3,10 +3,7 @@ import { LitElement, html } from 'lit';
 import { customElement, state, property, query } from 'lit/decorators.js';
 import { addNewPost, getAllPosts } from '../../actions/postActions';
 import { Post } from '../../models/models';
-import { memoriesState } from '../../states/memoryState';
 import { formStyles } from './styles';
-// import { addNewPost, get } from './actions/postActions';
-// import { Post } from './models/models';
 
 @customElement('memory-form')
 export class MemoryForm extends LitElement {
@@ -64,7 +61,6 @@ export class MemoryForm extends LitElement {
 
 
   addMemory(e: Event): void {
-    // e.preventDefault();
 
     const creator = this.creator.value;
     const message = this.message.value;
@@ -92,12 +88,6 @@ export class MemoryForm extends LitElement {
 
     }
 
-
-
-  
-
-
-
   }
 
 }
@@ -107,8 +97,6 @@ function getBase64(file: File, cb: (el:string | ArrayBuffer | null) => void) {
 
   reader.readAsDataURL(file);
   reader.onload = function () {
-    console.log(reader.result);//outputs random looking characters for the image
-    // Return the result in the callback
     cb(reader.result);
   };
   reader.onerror = function (error) {
