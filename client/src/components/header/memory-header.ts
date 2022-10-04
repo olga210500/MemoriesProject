@@ -37,7 +37,6 @@ export class MemoryHeader extends LitElement {
     <h1 class='header'>Memories</h1>
     </div>
 
-
   `;
   }
 

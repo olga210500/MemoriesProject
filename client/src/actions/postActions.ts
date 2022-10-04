@@ -13,9 +13,11 @@ const addNewPost = (post: Post) => {
     fetch(URL + 'posts', params)
         .then(data=>data.json())
         .then((res) => {
-            console.log(res);
             const items =JSON.parse(localStorage.getItem('posts')||'[]');
-            localStorage.setItem('posts',JSON.stringify([...items,res]))
+            localStorage.setItem('posts',JSON.stringify([...items,res]));
+
+            location.reload();
+
         })
         .catch(err => {
             console.log(err);

@@ -10,6 +10,7 @@ export class MemoryForm extends LitElement {
   static styles = formStyles;
 
   @state()
+  public _listItems = JSON.parse(localStorage.getItem('posts') || '[]');
 
 
   @property()
@@ -20,7 +21,7 @@ export class MemoryForm extends LitElement {
 
 <div>
 <div class="memory-form-wrapper">
-  <div class="memory-form">
+  <form class="memory-form" id='card'>
     <h5 class="title">Creating a memory</h5>
     <p class="description">Create memory to not forgot.
     </p>
@@ -42,7 +43,7 @@ export class MemoryForm extends LitElement {
     <div class="submit-button-wrapper">
     <input type="button" value="Send"  @click = ${this.addMemory} >
     </div>
-  </div>
+  </form>
 </div>
 </div>
  `;
@@ -68,6 +69,7 @@ export class MemoryForm extends LitElement {
     const selectedFiles = this.selectedFile.files;
     const tags = this.tags.value;
 
+
     let obj: Post = {
       title,
       message,
@@ -87,7 +89,6 @@ export class MemoryForm extends LitElement {
       addNewPost(obj);
 
     }
-
   }
 
 }
