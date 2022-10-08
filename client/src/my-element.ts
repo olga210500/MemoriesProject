@@ -34,7 +34,7 @@ export class MemoriesList extends LitElement {
 
 
   render() {
-    const memoriesForm = html`<memory-form></memory-form>`
+    const memoriesForm = html`<memory-form  header="Create memory"></memory-form>`
     // TODO: Define partial templates.
     return html`
 

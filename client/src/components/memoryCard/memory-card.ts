@@ -12,33 +12,32 @@ export class MemoryCard extends LitElement {
   static styles = cardStyles;
 
   @state()
-  
+
   public _listItems = JSON.parse(localStorage.getItem('posts') || '[]');
 
 
   @property()
 
 
-
   render() {
     const items = this._listItems;
 
-    
-    if(!items.length){
+
+    if (!items.length) {
       getAllPosts();
 
     }
- 
+
     return html`<ul class="cards">${items.map((item: Post) => html`
     
     
     <li>
       <div class="card">
-       <img src="${item?.selectedFile  || 'https://i.imgur.com/oYiTqum.jpg'}" class="card__image" alt="" />
+       <img src="${item?.selectedFile || 'https://i.imgur.com/oYiTqum.jpg'}" class="card__image" alt="" />
 
         <div class="card__overlay">
-        <img class='edit__icon' src="./src/assets/icons/edit_icon.svg" @click = ${()=>this.editMemory(item?._id)} alt="ICON">
-        <img class='delete_card'src="./src/assets/icons/delete_icon.svg" @click = ${()=>this.deleteMemory(item?._id)} alt="ICON">
+        <img class='edit__icon' src="./src/assets/icons/edit_icon.svg" @click = ${() => this.editMemory(item?._id)} alt="ICON">
+        <img class='delete_card'src="./src/assets/icons/delete_icon.svg" @click = ${() => this.deleteMemory(item?._id)} alt="ICON">
           <div class="card__header">
             <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                     
             <div class="card__header-text">
@@ -55,24 +54,38 @@ export class MemoryCard extends LitElement {
       </div>      
     </li>
   `)}</ul>
+  
   `
 
 
   }
 
-  deleteMemory(id:string|undefined){
-    if(id){
-      
+  deleteMemory(id: string | undefined) {
+    if (id) {
+
       deletePost(id);
-      this._listItems = this._listItems.filter((el:Post)=>el._id!==id)
-      localStorage.setItem('posts',JSON.stringify(this._listItems))
+      this._listItems = this._listItems.filter((el: Post) => el._id !== id)
+      localStorage.setItem('posts', JSON.stringify(this._listItems))
 
     }
 
-    
-  
-  }
-  editMemory(id:string|undefined){
+
 
   }
+  editMemory(id: string | undefined) {
+    
+    var modal = document.querySelector('tyapk-modal');
+    const currentCard:Post =  this._listItems.find((el:Post)=>el._id===id);
+    const {_id, title, tags, selectedFile, message, creator, createdAt} = currentCard;
+    modal.show = true;
+    modal.id = _id;
+    modal.title = title;
+    modal.tags = tags;
+    modal.selectedFile = selectedFile;
+    modal.message = message;
+    modal.creator = creator;
+    modal.createdAt = createdAt;
+   
+  }
+
 }

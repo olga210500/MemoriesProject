@@ -33,6 +33,8 @@ const updtateCurrentPost = (id: string, post: Post) => {
     fetch(URL + `posts/${id}`, params)
         .then((res) => {
             console.log(res);
+            location.reload();
+
         })
         .catch(err => {
             console.log(err);
