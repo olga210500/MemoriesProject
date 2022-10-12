@@ -76,7 +76,7 @@ export class MemoryForm extends LitElement {
   getTags!: HTMLInputElement;
 
 
-  addMemory(e: Event): void {
+  addMemory(): void {
 
     const creator = this.getCreator.value;
     const message = this.getMessage.value;
@@ -105,7 +105,7 @@ export class MemoryForm extends LitElement {
 
     }
   }
-  updateMemory(e: Event):void{
+  updateMemory():void{
     var modal = document.querySelector('tyapk-modal');
     const creator = this.getCreator.value.trim();
     const message = this.getMessage.value.trim();
@@ -134,12 +134,8 @@ export class MemoryForm extends LitElement {
       const pos = this._listItems.map((e:Post) => e._id).indexOf(this.id);
       this._listItems[pos]=updatedPost;
       this._listItems = this._listItems;
-      modal.show=false;
-    
-
-      // const currentItem = this._listItems.filter((el:Post)=>el._id===this.id)
-    }
-    console.log(this.title)
+      modal?.setAttribute("show","false");
+      }
   }
 }
 

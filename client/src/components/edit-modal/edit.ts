@@ -3,7 +3,6 @@
  * and TypeScript decorators
  **/
  import {
-    css,
     LitElement,
     html,
     customElement,

@@ -1,2 +1,2 @@
-const URL = 'http://localhost:5000/';
+const URL = 'https://lnu-memories-project.herokuapp.com/';
  export {URL}

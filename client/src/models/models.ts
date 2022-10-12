@@ -3,11 +3,9 @@ interface Post {
     title: string,
     message: string,
     creator: string,
-    tags: Tags,
+    tags: string[] | string,
     selectedFile?: string,
     createdAt?: Date
 }
-interface Tags {
- [index: number]: string;
-}
-export type {Post, Tags}
+
+export type {Post}

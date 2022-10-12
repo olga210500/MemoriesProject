@@ -1,8 +1,8 @@
 
 import { LitElement, html } from 'lit';
-import { customElement, state, property, query } from 'lit/decorators.js';
-import { addNewPost, deletePost, getAllPosts } from '../../actions/postActions';
-import { Post, Tags } from '../../models/models';
+import { customElement, state, property } from 'lit/decorators.js';
+import { deletePost, getAllPosts } from '../../actions/postActions';
+import { Post } from '../../models/models';
 import moment from 'moment';
 import { cardStyles } from './styles';
 
@@ -36,12 +36,12 @@ export class MemoryCard extends LitElement {
        <img src="${item?.selectedFile || 'https://i.imgur.com/oYiTqum.jpg'}" class="card__image" alt="" />
 
         <div class="card__overlay">
-        <img class='edit__icon' src="./src/assets/icons/edit_icon.svg" @click = ${() => this.editMemory(item?._id)} alt="ICON">
+        <img class='edit__icon' src="./src/assets/icons/edit_icon.svg" @click = ${() => this.editMemory(item?._id || '')} alt="ICON">
         <img class='delete_card'src="./src/assets/icons/delete_icon.svg" @click = ${() => this.deleteMemory(item?._id)} alt="ICON">
           <div class="card__header">
             <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                     
             <div class="card__header-text">
-            ${Array(item.tags).map((tag: Tags) => html`
+            ${Array(item.tags).map((tag) => html`
              <div class="card__tag">#${tag}</div> `)}
               <h3 class="card__title">${item.creator}</h3>            
               <span class="card__status">${moment(item.createdAt).fromNow()}</span>
@@ -72,19 +72,22 @@ export class MemoryCard extends LitElement {
 
 
   }
-  editMemory(id: string | undefined) {
+  editMemory(id: string) {
     
     var modal = document.querySelector('tyapk-modal');
     const currentCard:Post =  this._listItems.find((el:Post)=>el._id===id);
     const {_id, title, tags, selectedFile, message, creator, createdAt} = currentCard;
-    modal.show = true;
-    modal.id = _id;
-    modal.title = title;
-    modal.tags = tags;
-    modal.selectedFile = selectedFile;
-    modal.message = message;
-    modal.creator = creator;
-    modal.createdAt = createdAt;
+
+    
+
+    modal?.setAttribute("show",'true');
+    modal?.setAttribute("id", _id||'');
+    modal?.setAttribute("title",title)
+    modal?.setAttribute("tags",tags.toString());
+    modal?.setAttribute("selectedFile",selectedFile||'')
+    modal?.setAttribute("message",message)
+    modal?.setAttribute("creator",creator)
+    modal?.setAttribute("createdAt",createdAt?.toString()||'')
    
   }
 

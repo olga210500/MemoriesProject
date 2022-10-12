@@ -12,7 +12,6 @@ const getPosts = async (req, res)=>{
 const createPost = async (req, res)=>{
     const post = req.body;
     const newPost = new PostMessage(post)
-    console.log(post, newPost);
     try {
         await newPost.save();
         res.status(201).json(newPost)
