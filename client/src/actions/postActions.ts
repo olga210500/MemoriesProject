@@ -35,14 +35,12 @@ const updtateCurrentPost = (id: string, post: Post) => {
             console.log(res);
             if (res) {
                 const items = JSON.parse(localStorage.getItem('posts') || '[]');
-                const indexOfObject = items.findIndex(el=>el._id===post._id);
-                console.log(post.selectedFile)
+                const indexOfObject = items.findIndex((el:Post)=>el._id===post._id);
                 if(!post.selectedFile){
                     post.selectedFile=items[indexOfObject].selectedFile;
                 }
                 items[indexOfObject] = post;
                
-                console.log( items)
                 localStorage.setItem('posts', JSON.stringify([...items]));
                 location.reload();
             }

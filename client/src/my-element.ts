@@ -1,7 +1,6 @@
 
 import { LitElement, html, css } from 'lit';
 import { customElement, state, property } from 'lit/decorators.js';
-import { getAllPosts } from './actions/postActions';
 
 
 @customElement('memories-list')
