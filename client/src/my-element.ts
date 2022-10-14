@@ -1,6 +1,7 @@
 
 import { LitElement, html, css } from 'lit';
 import { customElement, state, property } from 'lit/decorators.js';
+import { getAllPosts } from './actions/postActions';
 
 
 @customElement('memories-list')
@@ -37,7 +38,6 @@ export class MemoriesList extends LitElement {
     const memoriesForm = html`<memory-form  header="Create memory"></memory-form>`
     // TODO: Define partial templates.
     return html`
-
     <div class='main'>
     <memory-header></memory-header>
     <div class='wrapper'>

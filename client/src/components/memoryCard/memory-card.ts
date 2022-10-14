@@ -87,8 +87,7 @@ export class MemoryCard extends LitElement {
     modal?.setAttribute("selectedFile",selectedFile||'')
     modal?.setAttribute("message",message)
     modal?.setAttribute("creator",creator)
-    modal?.setAttribute("createdAt",createdAt?.toString()||'')
-   
+    modal?.setAttribute("createdAt",createdAt?.toString()||'')   
   }
 
 }

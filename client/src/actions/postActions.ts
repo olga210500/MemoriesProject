@@ -4,17 +4,17 @@ import { Post } from "../models/models";
 
 const addNewPost = (post: Post) => {
     console.log(JSON.stringify(post));
-    
+
     const params = {
         body: JSON.stringify(post),
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
     }
     fetch(URL + 'posts', params)
-        .then(data=>data.json())
+        .then(data => data.json())
         .then((res) => {
-            const items =JSON.parse(localStorage.getItem('posts')||'[]');
-            localStorage.setItem('posts',JSON.stringify([...items,res]));
+            const items = JSON.parse(localStorage.getItem('posts') || '[]');
+            localStorage.setItem('posts', JSON.stringify([...items, res]));
 
             location.reload();
 
@@ -33,7 +33,19 @@ const updtateCurrentPost = (id: string, post: Post) => {
     fetch(URL + `posts/${id}`, params)
         .then((res) => {
             console.log(res);
-            location.reload();
+            if (res) {
+                const items = JSON.parse(localStorage.getItem('posts') || '[]');
+                const indexOfObject = items.findIndex(el=>el._id===post._id);
+                console.log(post.selectedFile)
+                if(!post.selectedFile){
+                    post.selectedFile=items[indexOfObject].selectedFile;
+                }
+                items[indexOfObject] = post;
+               
+                console.log( items)
+                localStorage.setItem('posts', JSON.stringify([...items]));
+                location.reload();
+            }
 
         })
         .catch(err => {
@@ -70,7 +82,7 @@ const getAllPosts = () => {
             localStorage.setItem("posts", JSON.stringify(resp || []));
 
             console.log(resp);
-            
+
 
             return resp;
 
